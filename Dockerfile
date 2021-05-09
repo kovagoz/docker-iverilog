@@ -16,6 +16,6 @@ RUN set -x && \
 	apk del --purge build-deps && \
 	rm -rf /tmp/*
 
-ENTRYPOINT iverilog
+ENTRYPOINT ["/usr/local/bin/iverilog"]
 
 # vim: ts=4
