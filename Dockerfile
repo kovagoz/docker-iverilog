@@ -4,8 +4,8 @@ RUN set -x && \
 	apk add --no-cache --virtual build-deps \
 		git autoconf build-base gperf flex-dev bison && \
 
-	git clone --depth 1 https://github.com/ddm/verilator.git /tmp/verilator && \
-	cd /tmp/verilator && \
+	git clone --depth 1 https://github.com/steveicarus/iverilog.git /tmp/iverilog && \
+	cd /tmp/iverilog && \
 	autoconf && \
 	./configure && \
 	make && \
