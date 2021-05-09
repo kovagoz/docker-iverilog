@@ -1,0 +1,33 @@
+name: Docker Image CI
+
+on:
+  push:
+    tags:
+      - '*'
+    paths:
+      - Dockerfile
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_REPO: kovagoz/trailers
+    steps:
+    
+    - name: Clone the repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+        
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag $DOCKER_REPO:${GITHUB_REF##*/}
+      
+    - name: Log in to Docker Hub
+      env:
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+
+    - name: Push the Docker image
+      run: docker push $DOCKER_REPO:${GITHUB_REF##*/}
