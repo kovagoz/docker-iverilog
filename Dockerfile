@@ -1,6 +1,8 @@
 FROM alpine:3
 
 RUN set -x && \
+	apk add libgcc libstdc++ --no-cache && \
+
 	apk add --no-cache --virtual build-deps \
 		git autoconf build-base gperf flex-dev bison && \
 
